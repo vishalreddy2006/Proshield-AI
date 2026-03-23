@@ -1,112 +1,82 @@
-ProShield – Threat Analysis System (Learning Project)
+# ProShield – SOC Threat Detection System
 
-Overview
+## Overview
 
-ProShield is a cybersecurity-focused project aimed at understanding how security events can be analyzed to identify attack patterns and improve defensive response.
+ProShield is a SOC-focused threat detection project designed to identify suspicious authentication activity from Linux logs.
 
-The project focuses on simulating how a Security Operations Center (SOC) can detect basic threats using event-based analysis.
-
-This is a learning-level implementation built to explore how attacks occur and how they can be identified early.
+It simulates how a Security Operations Center (SOC) detects early-stage attacks using log analysis and rule-based detection.
 
 ---
 
-Objective
+## Detection Focus
 
-The main goal of ProShield is to:
+### Brute Force Detection (MITRE ATT&CK T1110)
 
-- Analyze security-related events (like login attempts)
-- Identify suspicious behavior patterns
-- Map activities to possible attack stages
-- Explore how early detection can help prevent attacks
+- Source: Linux auth.log
+- Analyzes failed login attempts
+- Detects high-frequency authentication failures from the same source
 
----
+### Detection Logic
 
-Current Features
-
-1. Brute Force Detection
-
-- Monitors repeated login attempts
-- Identifies abnormal frequency of failed logins
-- Flags potential brute force attacks
-
-Basic logic used:
-
-- If multiple failed attempts occur within a short time → mark as suspicious
+If multiple failed login attempts occur within a short time window → flag as suspicious (possible brute-force attack)
 
 ---
 
-2. Event Pattern Analysis
+## How It Works
 
-- Tracks simple activity patterns
-- Helps understand how attackers behave in early stages
-
----
-
-3. MITRE ATT&CK Mapping (Beginner Level)
-
-- Attempts to relate observed activity to attack stages
-- Example:
-  - Repeated login attempts → Credential Access stage
-
-Purpose:
-
-- To understand how real-world threat intelligence frameworks work
+1. Reads authentication events from auth.log
+2. Filters failed login attempts
+3. Groups events based on frequency and timing
+4. Identifies abnormal patterns
+5. Generates alert for suspicious activity
 
 ---
 
-How It Works
+## Example Detection Output
 
-1. System receives events (e.g., login attempts)
-2. Events are analyzed using simple logic rules
-3. Suspicious patterns are detected
-4. Alerts are generated based on behavior
-
----
-
-Technologies Used
-
-- Backend logic (basic implementation)
-- Security concepts from:
-  - MITRE ATT&CK
-  - Basic SOC workflows
+[ALERT] Potential Brute-Force Attack Detected  
+Source IP: 192.168.1.10  
+Failed Attempts: 15 in 2 minutes  
+Mapped Technique: MITRE ATT&CK T1110  
 
 ---
 
-Key Learning Outcomes
+## Technologies Used
 
-- Understanding attacker behavior patterns
-- Basics of threat detection logic
-- Importance of early detection in cybersecurity
-- How security events can be used for analysis
-
----
-
-Limitations
-
-- Uses simple rule-based detection (not full AI model)
-- No real-time enterprise log integration
-- Limited dataset and simulation-based approach
+- Python (for detection logic)
+- Wazuh (SIEM concepts)
+- MITRE ATT&CK Framework
+- Wireshark (network analysis basics)
 
 ---
 
-Future Improvements
+## Key Concepts Demonstrated
 
-- Implement real log ingestion (system/network logs)
-- Add anomaly detection models
-- Include lateral movement detection
-- Improve mapping to MITRE ATT&CK techniques
-- Build dashboard for SOC-style monitoring
+- Log-based threat detection  
+- Authentication log analysis (auth.log)  
+- Alert generation based on event patterns  
+- Basic SOC investigation workflow  
+- MITRE ATT&CK mapping  
 
 ---
 
-Conclusion
+## Limitations
 
-ProShield is a learning project focused on understanding how cybersecurity monitoring systems work.
+- Rule-based detection (no advanced analytics)  
+- Simulated environment (no enterprise log pipeline)  
+- Limited attack coverage (focused on brute-force)  
 
-It demonstrates the basic idea of:
+---
 
-- Detecting threats
-- Analyzing attacker behavior
-- Mapping activities to attack frameworks
+## Future Improvements
 
-The goal is to gradually evolve this into a more advanced threat detection system.
+- Real-time log ingestion  
+- Detection for additional attack types (DNS anomalies, lateral movement)  
+- Enhanced MITRE mapping  
+- SOC-style dashboard for monitoring  
+
+---
+
+## Summary
+
+ProShield demonstrates how authentication logs can be analyzed to detect brute-force attacks and generate alerts using SOC-style detection logic.
