@@ -61,7 +61,7 @@ Shows:
 
 🚨 Anomaly Detection
 
-
+![Anomaly Detection](assets/anomaly-detection.png)
 
 Shows:
 
@@ -107,7 +107,7 @@ Shows:
 
 🧩 MITRE ATT&CK Mapping
 
-
+![MITRE](assets/mitre-mapping.png)
 
 Shows:
 
